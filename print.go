@@ -10,6 +10,3 @@ import (
 func go_print_something() {
 	fmt.Println("Hello world!")
 }
-
-func init() {
-}
