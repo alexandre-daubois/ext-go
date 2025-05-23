@@ -6,4 +6,6 @@ typedef struct go_string {
   char *data;
 } go_string;
 
+PHP_FUNCTION(go_print);
+
 #endif
