@@ -1,11 +1,13 @@
 #ifndef _EXTGO_H
 #define _EXTGO_H
 
-typedef struct go_string {
-  size_t len;
-  char *data;
-} go_string;
+#include <php.h>
 
-PHP_FUNCTION(go_print);
+extern zend_module_entry ext_go_module_entry;
+
+#define phpext_ext_go_ptr &ext_go_module_entry
+
+#define PHP_EXT_GO_VERSION "0.1.0"
+#define PHP_EXT_GO_EXTNAME "ext_go"
 
 #endif
