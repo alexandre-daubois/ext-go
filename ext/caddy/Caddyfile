@@ -1,0 +1,7 @@
+{
+    frankenphp {
+        php_ini extension ext-go
+    }
+
+    debug
+}
