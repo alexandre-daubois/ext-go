@@ -10,10 +10,6 @@
 
 PHP_FUNCTION(go_print) /* {{{ */
 {
-    if (zend_parse_parameters_none() == FAILURE) {
-        RETURN_THROWS();
-    }
-
     go_print_something();
 }
 /* }}} */
