@@ -7,6 +7,4 @@ ZEND_END_ARG_INFO()
 ZEND_FUNCTION(go_print);
 
 static const zend_function_entry ext_functions[] = {
-	ZEND_FE(go_print, arginfo_go_print)
-	ZEND_FE_END
-};
+    ZEND_FE(go_print, arginfo_go_print) ZEND_FE_END};
