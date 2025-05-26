@@ -48,5 +48,6 @@ zend_module_entry ext_go_module_entry = {
 
 void auto_register_ext_go() {
      zend_module_entry *module = &ext_go_module_entry;
-     zend_register_internal_module(module);
+     zend_register_module_ex(module, MODULE_PERSISTENT);
+     //zend_register_internal_module(module);
 }
