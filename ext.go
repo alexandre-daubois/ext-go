@@ -2,7 +2,9 @@ package ext_go
 
 //#include "ext-go.h"
 import "C"
-import "github.com/caddyserver/caddy/v2"
+import (
+	"log/slog"
+)
 
 func init() {
 	C.register_extension()
@@ -11,6 +13,6 @@ func init() {
 //export go_print_something
 func go_print_something() {
 	go func() {
-		caddy.Log().Info("Hello from a goroutine!")
+		slog.Info("Hello from a goroutine!")
 	}()
 }
