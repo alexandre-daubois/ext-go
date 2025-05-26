@@ -5,9 +5,6 @@ import (
 )
 
 // #include "ext-go.h"
-// #include <php.h>
-//
-// extern zend_module_entry ext_go_module_entry;
 // extern void auto_register_ext_go();
 import "C"
 
