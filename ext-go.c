@@ -9,7 +9,9 @@
 
 PHP_FUNCTION(go_print) /* {{{ */
 {
-    ZEND_PARSE_PARAMETERS_NONE();
+    if (zend_parse_parameters_none() == FAILURE) {
+        RETURN_THROWS();
+    }
 
     go_print_something();
 }
@@ -29,16 +31,6 @@ PHP_MSHUTDOWN_FUNCTION(ext_go)
 }
 /* }}} */
 
-/* {{{ PHP_MINFO_FUNCTION */
-PHP_MINFO_FUNCTION(ext_go)
-{
-    php_info_print_table_start();
-    php_info_print_table_header(2, "ext-go support", "enabled");
-    php_info_print_table_row(2, "Version", PHP_EXT_GO_VERSION);
-    php_info_print_table_end();
-}
-/* }}} */
-
 /* {{{ ext_go_module_entry */
 zend_module_entry ext_go_module_entry = {
     STANDARD_MODULE_HEADER,
@@ -48,7 +40,7 @@ zend_module_entry ext_go_module_entry = {
     PHP_MSHUTDOWN(ext_go),  /* MSHUTDOWN */
     NULL,                   /* RINIT */
     NULL,                   /* RSHUTDOWN */
-    PHP_MINFO(ext_go),      /* MINFO */
+    NULL,      /* MINFO */
     PHP_EXT_GO_VERSION,
     STANDARD_MODULE_PROPERTIES
 };
