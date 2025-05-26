@@ -4,6 +4,8 @@
 #include "ext-go.h"
 #include "ext-go_arginfo.h"
 #include "_cgo_export.h"
+#include "ext/standard/info.h"
+#include "zend_API.h"
 
 PHP_FUNCTION(go_print) /* {{{ */
 {
@@ -41,7 +43,7 @@ PHP_MINFO_FUNCTION(ext_go)
 zend_module_entry ext_go_module_entry = {
     STANDARD_MODULE_HEADER,
     PHP_EXT_GO_EXTNAME,
-    ext_functions,           /* Functions */
+    ext_functions,          /* Functions */
     PHP_MINIT(ext_go),      /* MINIT */
     PHP_MSHUTDOWN(ext_go),  /* MSHUTDOWN */
     NULL,                   /* RINIT */
@@ -52,6 +54,7 @@ zend_module_entry ext_go_module_entry = {
 };
 /* }}} */
 
-#ifdef COMPILE_DL_EXT_GO
-ZEND_GET_MODULE(ext_go)
-#endif
+void auto_register_ext_go() {
+     zend_module_entry *module = &ext_go_module_entry;
+     zend_register_internal_module(module);
+}
