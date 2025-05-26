@@ -12,11 +12,9 @@ import (
 import "C"
 
 func init() {
-	// Enregistrer comme module App (se charge automatiquement)
 	caddy.RegisterModule(ExtGoApp{})
 }
 
-// ExtGoApp implémente caddy.App pour un chargement automatique
 type ExtGoApp struct{}
 
 func (ExtGoApp) CaddyModule() caddy.ModuleInfo {
@@ -26,7 +24,6 @@ func (ExtGoApp) CaddyModule() caddy.ModuleInfo {
 	}
 }
 
-// Provision configure le module
 func (m *ExtGoApp) Provision(ctx caddy.Context) error {
 	caddy.Log().Info("Provisioning ext_go PHP extension")
 	C.auto_register_ext_go()
