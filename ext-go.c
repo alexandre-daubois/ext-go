@@ -1,11 +1,9 @@
 #include <php.h>
-#include <ext/standard/info.h>
-
 #include "ext-go.h"
 #include "ext-go_arginfo.h"
 #include "_cgo_export.h"
-#include "ext/standard/info.h"
-#include "zend_API.h"
+
+static int (*original_php_register_internal_extensions_func)(void) = NULL;
 
 PHP_FUNCTION(go_print)
 {
@@ -16,22 +14,12 @@ PHP_FUNCTION(go_print)
     go_print_something();
 }
 
-PHP_MINIT_FUNCTION(ext_go)
-{
-    return SUCCESS;
-}
-
-PHP_MSHUTDOWN_FUNCTION(ext_go)
-{
-    return SUCCESS;
-}
-
 zend_module_entry ext_go_module_entry = {
     STANDARD_MODULE_HEADER,
     "ext_go",
     ext_functions,          /* Functions */
-    PHP_MINIT(ext_go),      /* MINIT */
-    PHP_MSHUTDOWN(ext_go),  /* MSHUTDOWN */
+    NULL,                   /* MINIT */
+    NULL,                   /* MSHUTDOWN */
     NULL,                   /* RINIT */
     NULL,                   /* RSHUTDOWN */
     NULL,      				/* MINFO */
@@ -41,8 +29,8 @@ zend_module_entry ext_go_module_entry = {
 
 PHPAPI int register_internal_extensions(void)
 {
-	if (php_register_internal_extensions() != SUCCESS) {
-		return FAILURE;
+	if (original_php_register_internal_extensions_func != NULL && original_php_register_internal_extensions_func() != SUCCESS) {
+        return FAILURE;
 	}
 
 	zend_module_entry *module = &ext_go_module_entry;
@@ -53,7 +41,7 @@ PHPAPI int register_internal_extensions(void)
 	return SUCCESS;
 }
 
-void register_ext_go() {
-	// TODO: save the previous value to call it
+void register_extension() {
+	original_php_register_internal_extensions_func = php_register_internal_extensions_func;
 	php_register_internal_extensions_func = register_internal_extensions;
 }
