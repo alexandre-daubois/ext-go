@@ -1,9 +1,6 @@
 <pre>
 <?php
 
-// Prints something in Caddy logs
-go_print();
-
-print_r(get_loaded_extensions());
+print_r("Uppercase from Go: " . go_upper("Hello"));
 ?>
 </pre>

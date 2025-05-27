@@ -14,6 +14,30 @@ PHP_FUNCTION(go_print) {
   go_print_something();
 }
 
+PHP_FUNCTION(go_upper)
+{
+    char *str;
+    size_t string_len;
+
+    ZEND_PARSE_PARAMETERS_START(1, 1)
+        Z_PARAM_STRING(str, string_len)
+    ZEND_PARSE_PARAMETERS_END();
+
+    go_string param = {string_len, str};
+    go_string *result = go_upper(&param);
+
+    RETVAL_STRINGL(result->data, result->len);
+
+    cleanup_go_string(result);
+}
+
+void cleanup_go_string(go_string *s) {
+    if (s && s->data) {
+        free(s->data);
+        free(s);
+    }
+}
+
 zend_module_entry ext_go_module_entry = {STANDARD_MODULE_HEADER,
                                          "ext_go",
                                          ext_functions, /* Functions */
